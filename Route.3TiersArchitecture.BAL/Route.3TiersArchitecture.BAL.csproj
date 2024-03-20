@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Route._3TiersArchitecture.BAL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Route.3TiersArchitecture.DAL\Route.3TiersArchitecture.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
