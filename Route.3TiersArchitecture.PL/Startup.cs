@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 using Route._3TiersArchitecture.DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using Route._3TiersArchitecture.BAL.Repositries;
+using Route._3TiersArchitecture.DAL.Models_Services_;
+using Route._3TiersArchitecture.BAL.Interface;
 
 namespace Route._3TiersArchitecture.PL
 {
@@ -40,10 +43,11 @@ namespace Route._3TiersArchitecture.PL
                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                    },
                 contextLifetime: ServiceLifetime.Scoped,
-                optionsLifetime: ServiceLifetime.Scoped
+            optionsLifetime: ServiceLifetime.Scoped
                 );
 
 
+            services.AddScoped<IDepartmentRepository , DepartmentRepository > ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
