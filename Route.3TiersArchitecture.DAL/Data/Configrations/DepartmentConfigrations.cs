@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Route._3TiersArchitecture.DAL.Configrations
+namespace Route._3TiersArchitecture.DAL.Data.Configrations
 {
     class DepartmentConfigrations : IEntityTypeConfiguration<Department>
     {
