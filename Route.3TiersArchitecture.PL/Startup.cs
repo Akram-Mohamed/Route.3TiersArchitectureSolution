@@ -17,12 +17,15 @@ namespace Route._3TiersArchitecture.PL
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        //public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,7 +36,8 @@ namespace Route._3TiersArchitecture.PL
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                    {
-                       options.UseSqlServer("Server=.; Database = MVCApplicationG02; Trusted_Connection=True;");
+                       //options.UseSqlServer(Configuration.GetSection("ConnectionString")["DefaultConnection"]);
+                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                    },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Scoped
