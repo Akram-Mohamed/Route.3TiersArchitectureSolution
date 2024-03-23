@@ -78,16 +78,17 @@ namespace Route._3TiersArchitecture.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id , Department entity)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([FromRoute] int id, Department entity)
         {
-            if (id != entity.Dept_Id )
+            if (id != entity.Dept_Id)
                 return BadRequest();
 
             if (!ModelState.IsValid)
                 return View(entity);
-                   
-           try
-           {
+
+            try
+            {
                 var count = _departmentsRepo.Update(entity);
                 if (count > 0)
                 {
@@ -99,19 +100,42 @@ namespace Route._3TiersArchitecture.PL.Controllers
             }
 
             catch (Exception ex)
-           {
-               // 1. Log Exception
-               // 2. Friendly Message
-           
-               //ModelState.AddModelError(string.Empty, ex.Message);
-           
-               if (_env.IsDevelopment())
-                   ModelState.AddModelError(string.Empty, ex.Message);
-               else
-                   ModelState.AddModelError(string.Empty,"Something Went WrongDuring Update Department:(");
-             
-               return View(entity);
-           }
+            {
+                // 1. Log Exception
+                // 2. Friendly Message
+
+                //ModelState.AddModelError(string.Empty, ex.Message);
+
+                if (_env.IsDevelopment())
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                else
+                    ModelState.AddModelError(string.Empty, "Something Went WrongDuring Update Department:(");
+
+                return View(entity);
+            }
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete([FromRoute] int? id,int department_Id)
+        {
+            //_departmentsRepo.Delete(department);
+
+            if (id != department_Id)
+                return BadRequest();
+
+            var department = _departmentsRepo.GetSpecificDepartment(department_Id);
+
+            if (department is null)
+                return NotFound();//404 Not Found
+
+            _departmentsRepo.Delete(department);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
     }
 }
