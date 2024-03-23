@@ -40,7 +40,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
             return _dbContext.SaveChanges();
         }
 
-        public Department Get(int id)
+        public Department GetSpecificDepartment(int id)
         {
             ///var department = _dbContext.Departments.Local.Where(D => D.Dept_Id == id).FirstOrDefault();
             ///if (department == null)

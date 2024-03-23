@@ -11,7 +11,7 @@ namespace Route._3TiersArchitecture.BAL.Interface
     public interface IDepartmentRepository
     {
         IEnumerable<Department> GetAll();
-        Department Get(int id);
+        Department GetSpecificDepartment(int id);
         int Add(Department entity);
         int Update(Department entity);
         int Delete(Department entity);

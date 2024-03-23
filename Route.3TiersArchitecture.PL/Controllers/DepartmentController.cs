@@ -19,7 +19,6 @@ namespace Route._3TiersArchitecture.PL.Controllers
             /*new DepartmentRepository();*/
         }
 
-
         public IActionResult Index()
         {
             var deparments = _departmentsRepo.GetAll();
@@ -33,7 +32,6 @@ namespace Route._3TiersArchitecture.PL.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Create(Department department)
         {
@@ -45,8 +43,18 @@ namespace Route._3TiersArchitecture.PL.Controllers
             }
             return View(department);
         }
+         
+        public IActionResult DepartmentDetails(int? id)
+        {
+            if (!id.HasValue /*id is null*/)
+                return BadRequest();//400 Bad request
+            var department=_departmentsRepo.GetSpecificDepartment(id.Value);
 
+            if (department is null  )
+                return NotFound();//404 Not Found
 
+            return View(department);
+        }
 
     }
 }
