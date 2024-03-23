@@ -26,7 +26,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         public int Add(Department entity)
         {
             _dbContext.Departments.Add(entity); 
-           return _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
         public int Update(Department entity) 
         {
