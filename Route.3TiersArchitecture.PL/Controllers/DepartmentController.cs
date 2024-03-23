@@ -78,9 +78,9 @@ namespace Route._3TiersArchitecture.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id ,Department entity)
+        public IActionResult Edit([FromRoute]int id , Department entity)
         {
-            if (entity.Dept_Id != id)
+            if (id != entity.Dept_Id )
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -88,11 +88,17 @@ namespace Route._3TiersArchitecture.PL.Controllers
                    
            try
            {
-                _departmentsRepo.Update(entity);
-                return RedirectToAction(nameof(Index));
+                var count = _departmentsRepo.Update(entity);
+                if (count > 0)
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(entity);
             }
 
-           catch (Exception ex)
+            catch (Exception ex)
            {
                // 1. Log Exception
                // 2. Friendly Message
