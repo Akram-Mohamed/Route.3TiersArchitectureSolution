@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,13 +10,15 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 {
 
 
-    enum Gender
+    public enum Gender
     {
+        [EnumMember(Value = "Male" )]
         Male = 1,
+        [EnumMember(Value = "Female")]
         Female = 2
     }
 
-    enum EmpType
+    public enum EmpType
     {
         FullTime = 1,
         PartTime = 2,
@@ -61,6 +64,12 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
         public bool IsDeletable { get; set; } = false;
+
+        public Gender Gender { get; set; }
+        public EmpType EmpType { get; set; }
+
+
+
 
     }
 }
