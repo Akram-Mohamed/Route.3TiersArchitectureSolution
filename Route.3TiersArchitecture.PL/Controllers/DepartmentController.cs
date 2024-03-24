@@ -118,10 +118,10 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete([FromRoute] int? department_Id, int id)
+        public IActionResult Delete([FromRoute] int? Id, int id)
         {
             //_departmentsRepo.Delete(department);
-            if (id != department_Id)
+            if (id != Id)
                 return BadRequest();
 
             var department = _departmentsRepo.GetSpecificEntity(id);

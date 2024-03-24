@@ -18,8 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\lib\bootstrap\css\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
+    <Folder Include="wwwroot\lib\bootstrap\js\" />
   </ItemGroup>
 
 </Project>
