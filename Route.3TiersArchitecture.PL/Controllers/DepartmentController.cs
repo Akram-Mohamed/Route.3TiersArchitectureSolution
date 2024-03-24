@@ -54,7 +54,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (!id.HasValue /*id is null*/)
                 return BadRequest();//400 Bad request
-            var department = _departmentsRepo.GetSpecificDepartment(id.Value);
+            var department = _departmentsRepo.GetSpecificEntity(id.Value);
 
             if (department is null)
                 return NotFound();//404 Not Found
@@ -81,7 +81,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int id, Department entity)
         {
-            if (id != entity.Dept_Id)
+            if (id != entity.Id)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -118,14 +118,13 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete([FromRoute] int? id,int department_Id)
+        public IActionResult Delete([FromRoute] int? department_Id, int id)
         {
             //_departmentsRepo.Delete(department);
-
             if (id != department_Id)
                 return BadRequest();
 
-            var department = _departmentsRepo.GetSpecificDepartment(department_Id);
+            var department = _departmentsRepo.GetSpecificEntity(id);
 
             if (department is null)
                 return NotFound();//404 Not Found

@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.BAL.Interface
 {
-
-    public interface IDepartmentRepository:IGenericRepository<Department>
+    public interface IGenericRepository<T> where T : ModelBase
     {
-     
+        IEnumerable<T> GetAll();
+        T GetSpecificEntity(int id);
+        int Add(T entity);
+        int Update(T entity);
+        int Delete(T entity);
+
+
     }
 }

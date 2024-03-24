@@ -8,27 +8,20 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.DAL.Models_Services_
 {
-
-
     public enum Gender
     {
-        [EnumMember(Value = "Male" )]
+        [EnumMember(Value = "Male")]
         Male = 1,
         [EnumMember(Value = "Female")]
         Female = 2
     }
-
     public enum EmpType
     {
         FullTime = 1,
         PartTime = 2,
     }
-
-    public class Employee
+    public class Employee:ModelBase
     {
-
-
-        public int Emp_Id { get; set; }
 
         [Required(ErrorMessage = "Name is Required!")]
         [MaxLength(50, ErrorMessage = "Max Length of Name is 50 Chars")]
@@ -72,4 +65,6 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 
 
     }
+
+
 }

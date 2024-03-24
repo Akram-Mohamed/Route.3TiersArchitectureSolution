@@ -13,8 +13,8 @@ namespace Route._3TiersArchitecture.DAL.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Department> DepartmentBuilder)
         {
-            DepartmentBuilder.HasKey(D => D.Dept_Id);
-            DepartmentBuilder.Property(D => D.Dept_Id).UseIdentityColumn(10, 10);
+            DepartmentBuilder.HasKey(D => D.Id);
+            DepartmentBuilder.Property(D => D.Id).UseIdentityColumn(10, 10);
 
             DepartmentBuilder.Property(D => D.Name)
                 .HasColumnType("varchar")
