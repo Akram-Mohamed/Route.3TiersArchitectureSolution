@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.DAL.Models_Services_
 {
-    public class Department
+    public class Department : ModelBase
     {
-
-        //[Key]
-        public int Dept_Id { get; set; }//Primary Key
+       
         [Required(ErrorMessage = "Code is Required Ya3m Enta :(--:(--")]//Not Accecpt Null
         public string Code { get; set; }//Department Number Shown To the user
 
@@ -24,4 +22,6 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 
 
     }
+
+
 }

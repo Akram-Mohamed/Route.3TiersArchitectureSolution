@@ -21,7 +21,7 @@ namespace Route._3TiersArchitecture.DAL.Data.Migrations
 
             modelBuilder.Entity("Route._3TiersArchitecture.DAL.Models_Services_.Department", b =>
                 {
-                    b.Property<int>("Dept_Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:IdentityIncrement", 10)
@@ -41,9 +41,61 @@ namespace Route._3TiersArchitecture.DAL.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("varchar(40)");
 
-                    b.HasKey("Dept_Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Route._3TiersArchitecture.DAL.Models_Services_.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmpType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("HiringDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeletable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
                 });
 #pragma warning restore 612, 618
         }
