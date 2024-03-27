@@ -8,7 +8,19 @@
 }
 
 <h1 class="mb-2">All Employee</h1>
-<a  asp-controller="Employee" asp-action="Create" class="btn btn-primary mb-3">Create New Department</a>
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary mb-2">Create New Department</a>
+
+
+<div class="row justify-content-center align-items-center mt-5">
+    <form asp-action="Index" class="row col-8 offset-2">
+        <div class="col-8">
+            <input type="text" class="form-control" name="searchInp" placeholder="Search By Name" />
+        </div>
+        <div class="col-4">
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+    </form>
+</div>
 
 
 @if (Model.Count() > 0)
@@ -25,7 +37,7 @@
             <th>@Html.DisplayNameFor(E => E.Gender)</th>
             @* <th>@Html.DisplayNameFor(E => E.PhoneNumber)</th> *@
             @*  <th>@Html.DisplayNameFor(E => E.EmpType)</th>
-            <th>@Html.DisplayNameFor(E => E.HiringDate)</th> *@
+        <th>@Html.DisplayNameFor(E => E.HiringDate)</th> *@
             <th>Details</th>
             <th>Update</th>
             <th>Delete</th>
@@ -72,35 +84,35 @@
 
                                         <div class="form-group">
                                             <label class="col-form-label text-black" asp-for="@Employee.Age"></label>
-                                            <input asp-for="@Employee.Age" class="form-control" readonly />  
+                                            <input asp-for="@Employee.Age" class="form-control" readonly />
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-form-label text-black" asp-for="@Employee.Email"></label>
                                             <input asp-for="@Employee.Email" class="form-control" readonly />
-                                           
+
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-form-label text-black" asp-for="@Employee.Address"></label>
                                             <input asp-for="@Employee.Address" class="form-control" readonly />
-                                            
+
                                         </div>
 
                                         <div class="form-group">
 
                                             <label class="col-form-label text-black" asp-for="@Employee.PhoneNumber"></label>
                                             <input asp-for="@Employee.PhoneNumber" class="form-control" readonly />
-                                          
+
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-form-label text-black" asp-for="@Employee.HiringDate"></label>
                                             <input asp-for="@Employee.HiringDate" class="form-control" readonly />
-                                           
+
                                         </div>
-                                       
-         
+
+
 
                                     </div>
 

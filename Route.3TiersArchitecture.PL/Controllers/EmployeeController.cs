@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Models_Services_;
 using System;
+using System.Linq;
 
 namespace Route._3TiersArchitecture.PL.Controllers
 {
@@ -14,21 +15,33 @@ namespace Route._3TiersArchitecture.PL.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IWebHostEnvironment Env,IDepartmentRepository departmentRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository, IWebHostEnvironment Env, IDepartmentRepository departmentRepository)
         {
             _employeeRepository = employeeRepository;
             _env = Env;
             _departmentRepository = departmentRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchInp)
         {
-            var Employees= _employeeRepository.GetAll();
 
-            return View(Employees);
+            var Employees = Enumerable.Empty<Employee>();
+
+            if (string.IsNullOrEmpty(searchInp))
+            {
+                 Employees = _employeeRepository.GetAll();
+                return View(Employees);
+            }
+            else
+            {
+                 Employees = _employeeRepository.GetAll();
+
+                return View(Employees);
+            }
+
         }
 
-       
+
         [HttpGet]
         public IActionResult Create()
         {

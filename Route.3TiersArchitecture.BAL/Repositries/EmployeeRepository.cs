@@ -26,6 +26,12 @@ namespace Route._3TiersArchitecture.BAL.Repositries
                    E => string.Equals(E.Address, address, StringComparison.OrdinalIgnoreCase)
                   );
 
+        public IQueryable<Employee> SearchByName(string Name)
+          => _dbContext.Employees
+            .Where(
+                   E => string.Equals(E.Name, Name, StringComparison.OrdinalIgnoreCase)
+                  );
+               
 
 
         #region OLD Implement

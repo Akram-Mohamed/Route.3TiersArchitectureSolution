@@ -11,6 +11,7 @@ namespace Route._3TiersArchitecture.BAL.Interface
     {
 
         IQueryable<Employee> GetEmployeesByAddress(string address);
+        IQueryable<Employee> SearchByName(string address);
 
     }
 }
