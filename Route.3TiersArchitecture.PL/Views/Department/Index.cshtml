@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Index";
     string ActionName = "DepartmentDetails";
+
+
+    string viewDataMessage =ViewData["Message"] as string; // Enforce Type Safety -> Requires Type Convert[Strongly Typr Laguage]
+    string viewBagMessage = ViewBag.Message;
+
 }
 
 <h1 class="mb-1">All Departments</h1>

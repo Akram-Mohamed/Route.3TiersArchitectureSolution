@@ -26,6 +26,14 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         public IActionResult Index()
         {
+
+
+            // Binding Through View's Dictionary: Transfer Data from Action to View [One Way]
+            // 1. ViewData
+            ViewData["Message"] = "Hello ViewData";
+            // 2. ViewBag
+         
+
             var deparments = _departmentsRepo.GetAll();
             return View(deparments);
         }
