@@ -21,6 +21,9 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
         public DateTime DateOfCreation { get; set; }
 
 
+
+        //navigation property many
+        public ICollection<Employee> Employees { get; set; }=new HashSet<Employee>();
     }
 
 

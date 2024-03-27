@@ -27,7 +27,11 @@ namespace Route._3TiersArchitecture.DAL.Data.Configrations
                 .HasMaxLength(15)
                 .IsRequired();
 
-
+            DepartmentBuilder
+                .HasMany(D => D.Employees)
+                .WithOne(E => E.Department) 
+                .HasForeignKey(E=> E.DepartmentId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
 

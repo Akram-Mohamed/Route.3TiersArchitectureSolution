@@ -32,7 +32,8 @@ namespace Route._3TiersArchitecture.PL.Controllers
             // 1. ViewData
             ViewData["Message"] = "Hello ViewData";
             // 2. ViewBag
-         
+            ViewBag.Message = "Hello ViewData";
+
 
             var deparments = _departmentsRepo.GetAll();
             return View(deparments);
@@ -51,6 +52,14 @@ namespace Route._3TiersArchitecture.PL.Controllers
             if (ModelState.IsValid) // Server Side Validation
             {
                 var count = _departmentsRepo.Add(department);
+
+                // 3. TempData
+                if (count > 0)
+                    TempData["Message"] = "Department is Created Successfully";
+                else
+                    TempData["Message"] = "An Error Has Occured, Department Not Created :(";
+
+
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }

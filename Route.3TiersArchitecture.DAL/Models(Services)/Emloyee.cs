@@ -64,6 +64,12 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 
 
 
+        public int? DepartmentId { get; set; }
+
+
+        //navigation property one
+        public Department Department { get; set; }
+
 
     }
 
