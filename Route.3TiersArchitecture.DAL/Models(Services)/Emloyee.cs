@@ -20,7 +20,7 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
         FullTime = 1,
         PartTime = 2,
     }
-    public class Employee:ModelBase
+    public class  Employee : ModelBase
     {
 
         [Required(ErrorMessage = "Name is Required!")]
@@ -46,8 +46,9 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
         //[DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Display(Name = "Phone Number")]
-        [Phone]
+        [Display(Name = "Phone Number")] 
+        [RegularExpression(@"^01[0-2]\d{1,8}$",
+            ErrorMessage = "Phone must be like 01234567890")]
         //[DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 

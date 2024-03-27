@@ -43,7 +43,9 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         }
 
         public IEnumerable<T> GetAll()
-          => _dbContext.Set<T>().AsNoTracking().ToList();
+        { 
+            return  _dbContext.Set<T>().AsNoTracking().ToList(); 
+        }
 
         public T GetSpecificEntity(int id)
           => _dbContext.Find<T>(id);

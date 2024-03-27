@@ -1,0 +1,22 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Employee Details";
+    string ActionName = "Edit";
+
+}
+
+
+<h1 class="mb-3">Employee Details</h1>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="get">
+
+    <partial name="PartialViews/EmployeeEditCreateDetailsPartial" model="new EmployeeEditCreateDetailsModel ( @Model, ActionName)"></partial>
+
+</form>
+
+@section readonlyActivate{
+    <partial name="_ReadOnlyScriptPartial"></partial>
+
+}
+
+    

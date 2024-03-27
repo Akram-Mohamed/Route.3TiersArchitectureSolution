@@ -1,18 +1,20 @@
-﻿@model Department
+﻿@model Employee
 @{
     ViewData["Title"] = "Create";
     string ActionName = "Create";
+
 }
 
-<h1 class="mb-3">Create Department</h1>
-
+<h1>Create Employee</h1>
 
 
 <form asp-action="Create" method="post">
 
-    <partial name="PartialViews/DepartmentEditCreateDetailsPartial" model="new DepartmentEditCreateDetailsModel ( @Model, ActionName)"></partial>
+    <partial name="PartialViews/EmployeeEditCreateDetailsPartial" model="new EmployeeEditCreateDetailsModel ( @Model, ActionName)"></partial>
 
 </form>
+
+
 
 
 @section ScriptValidationSection {
