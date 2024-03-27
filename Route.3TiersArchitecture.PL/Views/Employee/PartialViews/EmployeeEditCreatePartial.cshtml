@@ -1,69 +1,81 @@
-﻿@model EmployeeEditCreateDetailsModel
+﻿@model Employee
 @{
-    var Name = @Model?.Employee?.Name;
-    var Age = @Model?.Employee?.Age;
-    var Email = @Model?.Employee?.Email;
-    var Address = @Model?.Employee?.Address;
-    var Salary = @Model?.Employee?.Salary;
-    var PhoneNumber = @Model?.Employee?.PhoneNumber;
-    var HiringDate = @Model?.Employee?.HiringDate;
-    var IsActive = @Model?.Employee?.IsActive;
+    // var Name = @Model.Model?.Employee?.Name;
+    // var Age = @Model.Model?.Employee?.Age;
+    // var Email = @Model.Model?.Employee?.Email;
+    // var Address = @Model.Model?.Employee?.Address;
+    // var Salary = @Model.Model?.Employee?.Salary;
+    // var PhoneNumber = @Model.Model?.Employee?.PhoneNumber;
+    // var HiringDate = @Model.Model?.Employee?.HiringDate;
+    // var IsActive = @Model.Model?.Employee?.IsActive;
+    
+
+var departments = new SelectList(ViewData["Departments"] as IEnumerable<Department>);
 
 }
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@Name"></label>
-    <input  asp-for="@Name" class="form-control " />
-    <span asp-validation-for="@Name" class="text-danger "></span>
+    <label class="col-form-label" asp-for="@Model.Name"></label>
+    <input  asp-for="@Model.Name" class="form-control " />
+    <span asp-validation-for="@Model.Name" class="text-danger "></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@Age"></label>
-    <input  asp-for="@Age" class="form-control" />
-    <span asp-validation-for="@Age" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.Age"></label>
+    <input  asp-for="@Model.Age" class="form-control" />
+    <span asp-validation-for="@Model.Age" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@Email"></label>
-    <input  asp-for="@Email" class="form-control" />
-    <span asp-validation-for="@Email" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.Email"></label>
+    <input  asp-for="@Model.Email" class="form-control" />
+    <span asp-validation-for="@Model.Email" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@Address"></label>
-    <input  asp-for="@Address" class="form-control" />
-    <span asp-validation-for="@Address" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.Address"></label>
+    <input  asp-for="@Model.Address" class="form-control" />
+    <span asp-validation-for="@Model.Address" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@Salary"></label>
-    <input  asp-for="@Salary" class="form-control" />
-    <span asp-validation-for="@Salary" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.Salary"></label>
+    <input  asp-for="@Model.Salary" class="form-control" />
+    <span asp-validation-for="@Model.Salary" class="text-danger"></span>
 </div>
 
 <div class="form-group">
 
-    <label class="col-form-label" asp-for="@PhoneNumber"></label>
-    <input  asp-for="@PhoneNumber" class="form-control" />
-    <span asp-validation-for="@PhoneNumber" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.PhoneNumber"></label>
+    <input  asp-for="@Model.PhoneNumber" class="form-control" />
+    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@HiringDate"></label>
-    <input asp-for="@HiringDate" class="form-control"  />
-    <span asp-validation-for="@HiringDate" class="text-danger"></span>
+    <label class="col-form-label" asp-for="@Model.HiringDate"></label>
+    <input asp-for="@Model.HiringDate" class="form-control"  />
+    <span asp-validation-for="@Model.HiringDate" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <label class="col-form-label" asp-for="@IsActive"></label>
-    <input id="form-Input"  asp-for="@IsActive" class="form-check" />
+    <label class="col-form-label" asp-for="@Model.IsActive"></label>
+    <input id="form-Input"  asp-for="@Model.IsActive" class="form-check" />
+
+</div>
+
+<div class="form-group">
+    <label class="col-form-label" asp-for="@Model.IsActive"></label>
+    <input id="form-Input" asp-for="@Model.IsActive" class="form-check" />
 
 </div>
 
 
-<div class="mt-3">
 
-    <input type="submit" value="@Model.ActionName" class="btn btn-outline-primary" />
-    <a asp-action="Index" class="btn btn-outline-dark px-5">Back To List</a>
+<div class="form-group">
+
+<label class="col-form-label" asp-for="Department"></label>
+<select class="form-control" asp-for="DepartmentId" asp-items="@departments">
+        <option value="">   -- Select Department-- </option> 
+</select>
 
 </div>

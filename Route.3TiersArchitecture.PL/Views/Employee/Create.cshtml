@@ -1,7 +1,7 @@
 ﻿@model Employee
 @{
     ViewData["Title"] = "Create";
-    string ActionName = "Create";
+    // string ActionName = "Create";
 
 }
 
@@ -10,7 +10,14 @@
 
 <form asp-action="Create" method="post">
 
-    <partial name="PartialViews/EmployeeEditCreatePartial" model="new EmployeeEditCreateDetailsModel ( @Model, ActionName)"></partial>
+    <partial name="PartialViews/EmployeeEditCreatePartial" model="@Model"></partial>
+  
+    <div class="mt-3">
+
+        <input type="submit" value="Create" class="btn btn-outline-primary" />
+        <a asp-action="Index" class="btn btn-outline-dark px-5">Back To List</a>
+
+    </div>
 
 </form>
 

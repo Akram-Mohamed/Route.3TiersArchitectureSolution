@@ -10,8 +10,12 @@
 
 <form asp-action="Create" method="post">
 
-    <partial name="PartialViews/Partial" model="new DepartmentEditCreateDetailsModel ( @Model, ActionName)"></partial>
+    <partial name="PartialViews/Partial" model="@Model"></partial>
 
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-outline-dark px-5">Back To List</a>
+
+    </div>
 </form>
 
 

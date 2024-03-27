@@ -12,11 +12,13 @@ namespace Route._3TiersArchitecture.PL.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IWebHostEnvironment _env;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IWebHostEnvironment Env)
+        public EmployeeController(IEmployeeRepository employeeRepository, IWebHostEnvironment Env,IDepartmentRepository departmentRepository)
         {
             _employeeRepository = employeeRepository;
             _env = Env;
+            _departmentRepository = departmentRepository;
         }
 
         public IActionResult Index()
@@ -30,6 +32,8 @@ namespace Route._3TiersArchitecture.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+
+            ViewData["Departments"] = _departmentRepository.GetAll();
             return View();
         }
 
