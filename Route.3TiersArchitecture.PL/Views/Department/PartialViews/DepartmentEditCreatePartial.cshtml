@@ -1,6 +1,11 @@
 ﻿@model Department
-@{  // var DateOfCreation = @Model?.Department?.DateOfCreation; // var Code = @Model?.Department?.Code; // var Name = @Model?.Department?.Name;
+@{  
+    // var DateOfCreation = @Model?.Department?.DateOfCreation; // var Code = @Model?.Department?.Code; // var Name = @Model?.Department?.Name;
+
+
  }
+
+
 <div class="form-group">
     <label class="col-form-label" asp-for="@Model.Code"></label>
     <input asp-for="@Model.Code" class="form-control" />
@@ -19,5 +24,7 @@
     <input asp-for="@Model.DateOfCreation" class="form-control" />
     <span asp-validation-for="@Model.DateOfCreation" class="text-danger"></span>
 </div>
+
+
 
 
