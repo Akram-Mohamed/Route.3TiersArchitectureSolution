@@ -17,19 +17,25 @@ namespace Route._3TiersArchitecture.PL.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _Mapper;
-        private readonly IEmployeeRepository _employeeRepository;
+        //private readonly IEmployeeRepository _unitOfWork.EmployeeRepository;
         private readonly IWebHostEnvironment _env;
-        private readonly IDepartmentRepository _departmentRepository;
+        // private readonly IDepartmentRepository _departmentRepository;
 
 
 
-        public EmployeeController(IMapper Mapper, IEmployeeRepository employeeRepository, IWebHostEnvironment Env, IDepartmentRepository departmentRepository)
+        public EmployeeController(IUnitOfWork unitOfWork,
+            IMapper Mapper,
+            /* IEmployeeRepository employeeRepository,*/
+            IWebHostEnvironment Env
+           /* IDepartmentRepository departmentRepository*/)
         {
             _Mapper = Mapper;
-            _employeeRepository = employeeRepository;
             _env = Env;
-            _departmentRepository = departmentRepository;
+            _unitOfWork = unitOfWork;
+            //_unitOfWork.EmployeeRepository = employeeRepository;
+            // _departmentRepository = departmentRepository;
         }
 
         public IActionResult Index(string searchInp)
@@ -43,21 +49,16 @@ namespace Route._3TiersArchitecture.PL.Controllers
             #endregion
 
             var Employees = Enumerable.Empty<Employee>();
+            var employeeRepo = _unitOfWork.Repository<Employee>() as EmployeeRepository;
+             if (string.IsNullOrEmpty(searchInp))
+                 Employees = employeeRepo.GetAll();
+             else
+                 Employees = employeeRepo.SearchByName(searchInp.ToLower());
 
-            if (string.IsNullOrEmpty(searchInp))
-            {
-                Employees = _employeeRepository.GetAll();
-                var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
 
-                return View(EmployeeMapped);
-            }
-            else
-            {
-                Employees = _employeeRepository.SearchByName(searchInp);
-                var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
-
-                return View(EmployeeMapped);
-            }
+            //Employees = _unitOfWork.Repository<Employee>().GetAll();
+            var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
+            return View(Employees);
 
         }
 
@@ -92,12 +93,19 @@ namespace Route._3TiersArchitecture.PL.Controllers
                 ///};
 
                 var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(employeeVM);
+                    _unitOfWork.Repository<Employee>().Add(EmployeeMapped);
+                var count = _unitOfWork.Complete();
 
-                var count = _employeeRepository.Add(EmployeeMapped);
 
+                // 2. Update Department
+                //_unitOfWork.Repository<Employee>().Update(department);
 
+                // 3. Delete Project
+                // _unitOfWork.Repository<Employee>().Remove(project);
 
-                //var count = _employeeRepository.Add(employee);
+                //_dbContext.SaveChanges(); unitOfWork.Complete();
+
+                //var count = _unitOfWork.Repository<Employee>().Add(employee);
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
@@ -109,7 +117,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (!id.HasValue /*id is null*/)
                 return BadRequest();//400 Bad request
-            var employee = _employeeRepository.GetSpecificEntity(id.Value);
+            var employee = _unitOfWork.Repository<Employee>().GetSpecificEntity(id.Value);
 
             var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(employee);
 
@@ -138,7 +146,8 @@ namespace Route._3TiersArchitecture.PL.Controllers
             try
             {
                 var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(entity);
-                var count = _employeeRepository.Update(EmployeeMapped);
+                _unitOfWork.Repository<Employee>().Update(EmployeeMapped);
+                var count = _unitOfWork.Complete();
                 if (count > 0)
                 {
                     TempData["Employee"] = "Employee Had Updated Successfully";
@@ -165,20 +174,20 @@ namespace Route._3TiersArchitecture.PL.Controllers
         public IActionResult Delete([FromRoute] int? Id, int id)
         {
 
-                //_departmentsRepo.Delete(department);
-                if (id != Id)
-                    return BadRequest();
-            var Employee =  new Employee ();
+            //_departmentsRepo.Delete(department);
+            if (id != Id)
+                return BadRequest();
+            var Employee = new Employee();
             try
             {
 
-                 Employee = _employeeRepository.GetSpecificEntity(id);
+                Employee = _unitOfWork.Repository<Employee>().GetSpecificEntity(id);
 
                 if (Employee is null)
                     return NotFound();//404 Not Found
 
-                _employeeRepository.Delete(Employee);
-
+                _unitOfWork.Repository<Employee>().Delete(Employee);
+                var count = _unitOfWork.Complete();
 
                 return RedirectToAction(nameof(Index));
 
@@ -189,11 +198,11 @@ namespace Route._3TiersArchitecture.PL.Controllers
                 // 1. Log Exception
                 // 2. Show Friendly Message
                 ModelState.AddModelError(string.Empty, ex.Message);
-                var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel >(Employee);
+                var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(Employee);
                 return View(Employee);
             }
 
-            
+
         }
 
 

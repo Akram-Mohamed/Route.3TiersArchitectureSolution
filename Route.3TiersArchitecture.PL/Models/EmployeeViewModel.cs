@@ -48,7 +48,7 @@ namespace Route._3TiersArchitecture.PL.Models
 
         public Gender Gender { get; set; }
 
-        public EmpType Type { get; set; }
+        public EmpType EmpType { get; set; }
 
         [Display(Name = "Hiring Date")]
         public DateTime HiringDate { get; set; }

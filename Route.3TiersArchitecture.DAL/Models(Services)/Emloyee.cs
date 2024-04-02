@@ -36,13 +36,13 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 
         public Gender Gender { get; set; }
 
-        public EmpType Type { get; set; }
+        public EmpType EmpType { get; set; }
 
         public DateTime HiringDate { get; set; }
 
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
-        public bool IsDeleted { get; set; } = false;
+        public bool IsDeletable { get; set; } = false;
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }

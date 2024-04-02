@@ -33,9 +33,9 @@ namespace Route._3TiersArchitecture.PL.Extenssions
                 optionsLifetime: ServiceLifetime.Scoped
                 );
 
-       
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
+            //services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             return services;
         }
