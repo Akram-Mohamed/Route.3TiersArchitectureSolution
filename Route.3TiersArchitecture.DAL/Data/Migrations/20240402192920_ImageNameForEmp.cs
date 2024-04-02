@@ -2,7 +2,7 @@
 
 namespace Route._3TiersArchitecture.DAL.Data.Migrations
 {
-    public partial class ImageNameColumForEmployee : Migration
+    public partial class ImageNameForEmp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,15 +11,6 @@ namespace Route._3TiersArchitecture.DAL.Data.Migrations
                 table: "Employees",
                 newName: "ISActive");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "DepartmentId",
-                table: "Employees",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "ImageName",

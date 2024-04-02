@@ -10,8 +10,8 @@ using Route._3TiersArchitecture.DAL.Data;
 namespace Route._3TiersArchitecture.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240402094550_ImageNameColumForEmployee")]
-    partial class ImageNameColumForEmployee
+    [Migration("20240402192920_ImageNameForEmp")]
+    partial class ImageNameForEmp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

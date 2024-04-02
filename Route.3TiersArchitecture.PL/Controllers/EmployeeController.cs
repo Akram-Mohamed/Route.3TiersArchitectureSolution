@@ -12,6 +12,7 @@ using System.Net;
 using System.Xml.Linq;
 using AutoMapper;
 using System.Collections.Generic;
+using Route._3TiersArchitecture.PL.Helpers;
 
 namespace Route._3TiersArchitecture.PL.Controllers
 {
@@ -77,7 +78,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (ModelState.IsValid) // Server Side Validation
             {
-
+                employeeVM.ImageName= DocumentUploader.UploadFile(employeeVM.Image,  "images");
 
 
                 // Manual Mapping
@@ -97,18 +98,19 @@ namespace Route._3TiersArchitecture.PL.Controllers
                     _unitOfWork.Repository<Employee>().Add(EmployeeMapped);
                 var count = _unitOfWork.Complete();
 
+                //EmployeeMapped.ImageName = FileName;
 
-                // 2. Update Department
-                //_unitOfWork.Repository<Employee>().Update(department);
+                /// 2. Update Department
+                ///_unitOfWork.Repository<Employee>().Update(department);
+                /// 3. Delete Project
+                /// _unitOfWork.Repository<Employee>().Remove(project);
+                ///_dbContext.SaveChanges(); unitOfWork.Complete();
+                ///var count = _unitOfWork.Repository<Employee>().Add(employee);
 
-                // 3. Delete Project
-                // _unitOfWork.Repository<Employee>().Remove(project);
-
-                //_dbContext.SaveChanges(); unitOfWork.Complete();
-
-                //var count = _unitOfWork.Repository<Employee>().Add(employee);
                 if (count > 0)
+                {
                     return RedirectToAction(nameof(Index));
+                }
             }
             return View(employeeVM);
         }

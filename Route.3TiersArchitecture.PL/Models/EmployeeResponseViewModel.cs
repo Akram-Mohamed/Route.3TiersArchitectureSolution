@@ -17,6 +17,7 @@ namespace Route._3TiersArchitecture.PL.Models
 
         public string PhoneNumber { get; set; }
 
+        public DateTime HiringDate { get; set; }
         public Gender Gender { get; set; }
 
         public string ImageName { get; set; }

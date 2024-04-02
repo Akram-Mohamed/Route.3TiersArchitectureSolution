@@ -3,6 +3,7 @@ using Route._3TiersArchitecture.DAL.Models_Services_;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Http;
 
 namespace Route._3TiersArchitecture.PL.Models
 {
@@ -53,7 +54,9 @@ namespace Route._3TiersArchitecture.PL.Models
         [Display(Name = "Hiring Date")]
         public DateTime HiringDate { get; set; }
 
+        public IFormFile Image { get; set; }
 
+        public string ImageName { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
     }
