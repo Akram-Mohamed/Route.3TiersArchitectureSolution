@@ -6,7 +6,7 @@
 
     string ViewDataMessage = ViewData["Message"] as string;
     string ViewBagMessage = ViewBag.Message;
-
+ 
     string ActionName = "EmployeeDetails";
 
 }
@@ -62,7 +62,9 @@
         <tbody>
             @foreach (var Employee in Model)
             {
+                
                 <tr>
+                   
                     <td>@Employee.Name</td>
                     <td>@Employee.Age</td>  
                     <td>@Employee.Department?.Name</td>
@@ -109,7 +111,8 @@
                                     <div class="modal-body">
 
                                         <div class="modal-body border border-2 border-primary-subtle border-4 rounded-4 bg-primary-subtle p-2 m-2">
-                                            @await Html.PartialAsync("PartialViews/EmployeeDeleteDetailsPartial", @Employee)
+                                            
+                                                @await Html.PartialAsync("PartialViews/EmployeeDeleteDetailsPartial", @Employee)
                                         </div>
 
                                     </div>

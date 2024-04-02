@@ -1,5 +1,9 @@
-﻿@model EmployeeResponseViewModel
+﻿
+@model EmployeeViewModel
 
+@{
+    var EmployeeMapped = .Map<EmployeeViewModel, Employee>(@Model);
+}
 
 <div class="">
 

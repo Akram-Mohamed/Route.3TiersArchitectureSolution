@@ -7,9 +7,6 @@ using Route._3TiersArchitecture.DAL.Models_Services_;
 using System;
 using System.Linq;
 using Route._3TiersArchitecture.PL.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net;
-using System.Xml.Linq;
 using AutoMapper;
 using System.Collections.Generic;
 using Route._3TiersArchitecture.PL.Helpers;
@@ -52,10 +49,10 @@ namespace Route._3TiersArchitecture.PL.Controllers
             var Employees = Enumerable.Empty<Employee>();
             var employeeRepo = _unitOfWork.Repository<Employee>() as EmployeeRepository;
 
-             if (string.IsNullOrEmpty(searchInp))
-                 Employees = employeeRepo.GetAll();
-             else
-                 Employees = employeeRepo.SearchByName(searchInp.ToLower());
+            if (string.IsNullOrEmpty(searchInp))
+                Employees = employeeRepo.GetAll();
+            else
+                Employees = employeeRepo.SearchByName(searchInp.ToLower());
 
 
             //Employees = _unitOfWork.Repository<Employee>().GetAll();
@@ -78,7 +75,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (ModelState.IsValid) // Server Side Validation
             {
-                employeeVM.ImageName= DocumentUploader.UploadFile(employeeVM.Image,  "images");
+                employeeVM.ImageName = DocumentUploader.UploadFile(employeeVM.Image, "images");
 
 
                 // Manual Mapping
@@ -95,7 +92,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
                 ///};
 
                 var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(employeeVM);
-                    _unitOfWork.Repository<Employee>().Add(EmployeeMapped);
+                _unitOfWork.Repository<Employee>().Add(EmployeeMapped);
                 var count = _unitOfWork.Complete();
 
                 //EmployeeMapped.ImageName = FileName;
@@ -121,8 +118,14 @@ namespace Route._3TiersArchitecture.PL.Controllers
             if (!id.HasValue /*id is null*/)
                 return BadRequest();//400 Bad request
             var employee = _unitOfWork.Repository<Employee>().GetSpecificEntity(id.Value);
+            var EmployeeMapped = new Object();
 
-            var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(employee);
+            if (Name.Equals("Edit"))
+            { EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(employee); }
+            else
+            {
+                EmployeeMapped = _Mapper.Map<Employee, EmployeeResponseViewModel>(employee);
+            }
 
             if (employee is null)
                 return NotFound();//404 Not Found
@@ -201,7 +204,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
                 // 1. Log Exception
                 // 2. Show Friendly Message
                 ModelState.AddModelError(string.Empty, ex.Message);
-                var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(Employee);
+                var EmployeeMapped = _Mapper.Map<Employee, EmployeeResponseViewModel>(Employee);
                 return View(Employee);
             }
 

@@ -21,8 +21,9 @@ namespace Route._3TiersArchitecture.PL.Models
         public Gender Gender { get; set; }
 
         public string ImageName { get; set; }
-   
-   
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+
 
 
     }
