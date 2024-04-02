@@ -1,11 +1,26 @@
-﻿@model IEnumerable<Employee>
+﻿@model IEnumerable<EmployeeViewModel>
 
 @{
 
     ViewData["Title"] = "Index";
+
+    string ViewDataMessage = ViewData["Message"] as string;
+    string ViewBagMessage = ViewBag.Message;
+
     string ActionName = "EmployeeDetails";
 
 }
+@* <div class="alert alert-success">
+    @ViewDataMessage
+</div> *@
+
+@if (string.IsNullOrEmpty((string)TempData["Employee"]))
+{
+    <div>
+        @TempData["Employee"]
+    </div>
+}
+
 
 <h1 class="mb-2">All Employee</h1>
 <a asp-controller="Employee" asp-action="Create" class="btn btn-primary mb-2">Create New Employee</a>
@@ -17,7 +32,7 @@
             <input type="text" class="form-control" name="searchInp" placeholder="Search By Name" />
         </div>
         <div class="col-4">
-            <input type="submit" value="Search" class="btn btn-success" />
+            <input type="submit" id="searchInp" value="Search" class="btn btn-success" />
         </div>
     </form>
 </div>
@@ -30,9 +45,11 @@
 
             <th>@Html.DisplayNameFor(E => E.Name)</th>
             <th>@Html.DisplayNameFor(E => E.Age)</th>
+            <th>@Html.DisplayNameFor(E => E.Department.Name)</th>
+            <th>@Html.DisplayNameFor(E => E.Address)</th>
             <th>@Html.DisplayNameFor(E => E.Email)</th>
             <th>@Html.DisplayNameFor(E => E.Salary)</th>
-            <th>@Html.DisplayNameFor(E => E.IsActive)</th>
+            <th>@Html.DisplayNameFor(E => E.ISActive)</th>
             <th>@Html.DisplayNameFor(E => E.Gender)</th>
             @* <th>@Html.DisplayNameFor(E => E.PhoneNumber)</th> *@
             @*  <th>@Html.DisplayNameFor(E => E.EmpType)</th>
@@ -47,18 +64,20 @@
             {
                 <tr>
                     <td>@Employee.Name</td>
-                    <td>@Employee.Age</td>
+                    <td>@Employee.Age</td>  
+                    <td>@Employee.Department?.Name</td>
+                    <td>@Employee.Address</td>
                     <td>@Html.DisplayFor(M => Employee.Email)</td>
                     <td>@Html.DisplayFor(M => Employee.Salary)</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" asp-for="@Employee.IsActive" id="flexSwitchCheckCheckedDisabled" disabled>
-                            <label class="form-check-label" asp-for="@Employee.IsActive"></label>
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="@Employee.ISActive" id="flexSwitchCheckCheckedDisabled" disabled>
+                            <label class="form-check-label" asp-for="@Employee.ISActive"></label>
                         </div>
                         
                     </td>   
                     <td>
-                        @if (@Employee.Gender == Route._3TiersArchitecture.DAL.Models_Services_.Gender.Male)
+                        @if ( @Employee.Gender.Equals(Route._3TiersArchitecture.DAL.Models_Services_.Gender.Male))
                         { <p>Male</p> }
                         else
                         {

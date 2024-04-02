@@ -19,13 +19,13 @@ namespace Route._3TiersArchitecture.DAL.Data.Configrations
             DepartmentBuilder.Property(D => D.Name)
                 .HasColumnType("varchar")
                 .HasMaxLength(40)
-                .IsRequired();
+                .IsRequired(true);
             //("Please ensure that you have entered your Surname"); ; 
 
             DepartmentBuilder.Property(D => D.Code)
                 .HasColumnType("varchar")
                 .HasMaxLength(15)
-                .IsRequired();
+                .IsRequired(true);
 
             DepartmentBuilder
                 .HasMany(D => D.Employees)

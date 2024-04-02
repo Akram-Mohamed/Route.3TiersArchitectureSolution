@@ -6,17 +6,27 @@ using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Models_Services_;
 using System;
 using System.Linq;
+using Route._3TiersArchitecture.PL.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
+using System.Xml.Linq;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Route._3TiersArchitecture.PL.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly IMapper _Mapper;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IWebHostEnvironment _env;
         private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IWebHostEnvironment Env, IDepartmentRepository departmentRepository)
+
+
+        public EmployeeController(IMapper Mapper, IEmployeeRepository employeeRepository, IWebHostEnvironment Env, IDepartmentRepository departmentRepository)
         {
+            _Mapper = Mapper;
             _employeeRepository = employeeRepository;
             _env = Env;
             _departmentRepository = departmentRepository;
@@ -24,19 +34,29 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         public IActionResult Index(string searchInp)
         {
+            #region ViewBag &ViewData
+            //// Binding Through View's Dictionary: Transfer Data from Action to View [One Way]
+            //// 1. ViewData
+            //ViewData["Message"] = "Hello ViewData";
+            //// 2. ViewBag
+            //ViewBag.Message = "Hello ViewData"; 
+            #endregion
 
             var Employees = Enumerable.Empty<Employee>();
 
             if (string.IsNullOrEmpty(searchInp))
             {
-                 Employees = _employeeRepository.GetAll();
-                return View(Employees);
+                Employees = _employeeRepository.GetAll();
+                var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
+
+                return View(EmployeeMapped);
             }
             else
             {
-                 Employees = _employeeRepository.GetAll();
+                Employees = _employeeRepository.SearchByName(searchInp);
+                var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
 
-                return View(Employees);
+                return View(EmployeeMapped);
             }
 
         }
@@ -46,20 +66,42 @@ namespace Route._3TiersArchitecture.PL.Controllers
         public IActionResult Create()
         {
 
-            ViewData["Departments"] = _departmentRepository.GetAll();
+            //ViewData["Departments"] = _departmentRepository.GetAll();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(EmployeeViewModel employeeVM)
         {
             if (ModelState.IsValid) // Server Side Validation
             {
-                var count = _employeeRepository.Add(employee);
+
+
+
+                // Manual Mapping
+                ///var mappedEmp = new Employee()
+                ///{
+                ///    Name = employeeVM.Name,
+                ///    Age = employeeVM.Age,
+                ///    Address = employeeVM.Address,
+                ///    Salary = employeeVM.Salary,
+                ///    Email = employeeVM.Email,
+                ///    PhoneNumber = employeeVM.PhoneNumber,
+                ///    ISActive = employeeVM.ISActive,
+                ///    HiringDate = employeeVM.HiringDate,
+                ///};
+
+                var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(employeeVM);
+
+                var count = _employeeRepository.Add(EmployeeMapped);
+
+
+
+                //var count = _employeeRepository.Add(employee);
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(employeeVM);
         }
 
         [HttpGet]
@@ -67,12 +109,14 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (!id.HasValue /*id is null*/)
                 return BadRequest();//400 Bad request
-            var department = _employeeRepository.GetSpecificEntity(id.Value);
+            var employee = _employeeRepository.GetSpecificEntity(id.Value);
 
-            if (department is null)
+            var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel>(employee);
+
+            if (employee is null)
                 return NotFound();//404 Not Found
 
-            return View(Name, department);
+            return View(Name, EmployeeMapped);
         }
 
         [HttpGet]
@@ -83,7 +127,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee entity)
+        public IActionResult Edit([FromRoute] int id, EmployeeViewModel entity)
         {
             if (id != entity.Id)
                 return BadRequest();
@@ -93,10 +137,11 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
             try
             {
-                var count = _employeeRepository.Update(entity);
+                var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(entity);
+                var count = _employeeRepository.Update(EmployeeMapped);
                 if (count > 0)
                 {
-
+                    TempData["Employee"] = "Employee Had Updated Successfully";
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -119,18 +164,36 @@ namespace Route._3TiersArchitecture.PL.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete([FromRoute] int? Id, int id)
         {
-            //_departmentsRepo.Delete(department);
-            if (id != Id)
-                return BadRequest();
 
-            var department = _employeeRepository.GetSpecificEntity(id);
+                //_departmentsRepo.Delete(department);
+                if (id != Id)
+                    return BadRequest();
+            var Employee =  new Employee ();
+            try
+            {
 
-            if (department is null)
-                return NotFound();//404 Not Found
+                 Employee = _employeeRepository.GetSpecificEntity(id);
 
-            _employeeRepository.Delete(department);
+                if (Employee is null)
+                    return NotFound();//404 Not Found
 
-            return RedirectToAction(nameof(Index));
+                _employeeRepository.Delete(Employee);
+
+
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            catch (Exception ex)
+            {
+                // 1. Log Exception
+                // 2. Show Friendly Message
+                ModelState.AddModelError(string.Empty, ex.Message);
+                var EmployeeMapped = _Mapper.Map<Employee, EmployeeViewModel >(Employee);
+                return View(Employee);
+            }
+
+            
         }
 
 

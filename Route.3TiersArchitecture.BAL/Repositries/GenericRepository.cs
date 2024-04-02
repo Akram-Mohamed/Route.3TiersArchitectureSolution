@@ -42,10 +42,10 @@ namespace Route._3TiersArchitecture.BAL.Repositries
             return _dbContext.SaveChanges();
         }
 
-       //public IEnumerable<T> GetAll()
-       //{
-       //    return _dbContext.Set<T>().AsNoTracking().ToList();
-       //}
+        //public IEnumerable<T> GetAll()
+        //{
+        //    return _dbContext.Set<T>().AsNoTracking().ToList();
+        //}
 
 
 
@@ -57,13 +57,10 @@ namespace Route._3TiersArchitecture.BAL.Repositries
                 return _dbContext.Set<T>().AsNoTracking().ToList();
         }
 
-
-
-         public T GetSpecificEntity(int id)
-          => _dbContext.Find<T>(id);
-
-
-
-
+        public T GetSpecificEntity(int id)
+        {
+            var Entity = _dbContext.Set<T>().Find(id);
+            return Entity;
         }
     }
+}

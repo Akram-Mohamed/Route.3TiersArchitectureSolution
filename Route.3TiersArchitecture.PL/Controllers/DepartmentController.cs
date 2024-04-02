@@ -34,7 +34,6 @@ namespace Route._3TiersArchitecture.PL.Controllers
             // 2. ViewBag
             ViewBag.Message = "Hello ViewData";
 
-
             var deparments = _departmentsRepo.GetAll();
             return View(deparments);
         }

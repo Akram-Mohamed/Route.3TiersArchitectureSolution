@@ -23,7 +23,7 @@ namespace Route._3TiersArchitecture.PL.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is Required :(")]//Not Accecpt Null
         [MaxLength(50, ErrorMessage = "max length of name is 50 chars ")]
         [MinLength(5, ErrorMessage = "min length of name is 5 chars ")]
         public string Name { get; set; }
@@ -35,6 +35,7 @@ namespace Route._3TiersArchitecture.PL.Models
         public string Address { get; set; }
         [DataType(DataType.Currency)]
         public decimal Salary { get; set; }
+
         [Display(Name = "IS Active")]
         public bool ISActive { get; set; }
         [EmailAddress]
@@ -52,8 +53,6 @@ namespace Route._3TiersArchitecture.PL.Models
         [Display(Name = "Hiring Date")]
         public DateTime HiringDate { get; set; }
 
-
-        public bool IsDeleted { get; set; } = false;
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }

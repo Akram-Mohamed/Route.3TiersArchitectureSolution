@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model EmployeeViewModel
 
 
 <div class="">
@@ -43,7 +43,7 @@
 
 
     <div>
-        @if (@Model.Gender == 0)
+        @if (@Model.Gender.Equals(Route._3TiersArchitecture.DAL.Models_Services_.Gender.Male))
         {
             <div class="border rounded-2  bg-success-subtle py-2">
 
@@ -74,8 +74,8 @@
 
    
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" asp-for="@Model.IsActive" id="flexSwitchCheckCheckedDisabled" disabled>
-        <label class="form-check-label" asp-for="@Model.IsActive"></label>
+        <input class="form-check-input" type="checkbox" role="switch" asp-for="@Model.ISActive" id="flexSwitchCheckCheckedDisabled" disabled>
+        <label class="form-check-label" asp-for="@Model.ISActive"></label>
     </div>
 </div>
 

@@ -21,17 +21,21 @@ namespace Route._3TiersArchitecture.BAL.Repositries
 
 
         public IQueryable<Employee> GetEmployeesByAddress(string address)
-            => _dbContext.Employees
-            .Where(
-                   E => string.Equals(E.Address, address, StringComparison.OrdinalIgnoreCase)
-                  );
+        {
+            return _dbContext.Employees.Where(E => string.Equals(E.Address, address, StringComparison.OrdinalIgnoreCase));
+        }
+        public IEnumerable<Employee> SearchByName(string Name)
+        {
 
-        public IQueryable<Employee> SearchByName(string Name)
-          => _dbContext.Employees
-            .Where(
-                   E => string.Equals(E.Name, Name, StringComparison.OrdinalIgnoreCase)
-                  );
-               
+
+            return _dbContext.Employees.Where(E => E.Name.ToLower().Contains(Name.ToLower()));
+
+            //=> _dbContext.Employees
+            //    .Where(
+            //           E => string.Equals(E.Name, Name, StringComparison.OrdinalIgnoreCase)
+            //          );
+
+        }
 
 
         #region OLD Implement
