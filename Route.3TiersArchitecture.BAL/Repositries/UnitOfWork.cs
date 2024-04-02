@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.BAL.Repositries
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
         //public IEmployeeRepository EmployeeRepository { get; set; }
@@ -23,6 +23,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         {
             //EmployeeRepository = new EmployeeRepository(dbContext);  //DepartmentRepository = new DepartmentRepository(dbContext);
             _dbContext = dbContext;
+            _repositoties = new Hashtable();
         }
 
    

@@ -19,7 +19,8 @@ namespace Route._3TiersArchitecture.PL.Extenssions
         {
 
 
-            services.AddControllersWithViews();  // Register Built-In Services Required by MVC
+            services.AddControllersWithViews();  
+            // Register Built-In Services Required by MVC
             //services.AddScoped<ApplicationDbContext>();
             //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
 
@@ -34,8 +35,10 @@ namespace Route._3TiersArchitecture.PL.Extenssions
                 );
 
             services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
-            //services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            
+            //services.AddScoped<IUnitOfWork, IUnitOfWork>();
+           // services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+           // services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             return services;
         }

@@ -50,6 +50,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
             var Employees = Enumerable.Empty<Employee>();
             var employeeRepo = _unitOfWork.Repository<Employee>() as EmployeeRepository;
+
              if (string.IsNullOrEmpty(searchInp))
                  Employees = employeeRepo.GetAll();
              else
@@ -58,7 +59,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
             //Employees = _unitOfWork.Repository<Employee>().GetAll();
             var EmployeeMapped = _Mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(Employees);
-            return View(Employees);
+            return View(EmployeeMapped);
 
         }
 

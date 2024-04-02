@@ -26,8 +26,6 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         }
         public IEnumerable<Employee> SearchByName(string Name)
         {
-
-
             return _dbContext.Employees.Where(E => E.Name.ToLower().Contains(Name.ToLower()));
 
             //=> _dbContext.Employees
