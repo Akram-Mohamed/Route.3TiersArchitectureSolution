@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.PL.Helpers
 {
     public class DocumentUploader
     {
 
-        public static string UploadFile(IFormFile file, string FolderName)
+        public static async Task <string> UploadFile(IFormFile file, string FolderName)
         {
             //1- get Located Folder Path
             //string folderPath = $"D:\\Files\\study\\1- Route\\Back End\\ASP\\C#\\07 ASP.NET Core MVC\\1- Main Demos\\Route.3TiersArchitectureSolution\\Route.3TiersArchitecture.PL\\wwwroot\\Files\\{FolderName}";
@@ -28,7 +29,7 @@ namespace Route._3TiersArchitecture.PL.Helpers
 
             using var FileStream = new FileStream(filePath, FileMode.Create);
 
-            file.CopyTo(FileStream);
+            await file.CopyToAsync(FileStream);
 
 
             return FileName;

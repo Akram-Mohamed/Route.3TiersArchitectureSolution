@@ -5,6 +5,7 @@ using Route._3TiersArchitecture.BAL.Interface;
 using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Models_Services_;
 using System;
+using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.PL.Controllers
 {
@@ -28,7 +29,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
             /*new DepartmentRepository();*/
         }
 
-        public IActionResult Index()
+        public async Task< IActionResult> Index()
         {
 
 
@@ -38,7 +39,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
             // 2. ViewBag
             ViewBag.Message = "Hello ViewData";
 
-            var deparments = _unitOfWork.Repository<Department>().GetAll();
+            var deparments =await _unitOfWork.Repository<Department>().GetAllAsync();
             return View(deparments);
         }
 
@@ -50,12 +51,12 @@ namespace Route._3TiersArchitecture.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Department department)
+        public async Task <IActionResult> Create(Department department)
         {
             if (ModelState.IsValid) // Server Side Validation
             {
                  _unitOfWork.Repository<Department>().Add(department);
-                var count = _unitOfWork.Complete();
+                var count = await _unitOfWork.Complete();
                 // 3. TempData
                 if (count > 0)
                     TempData["Message"] = "Department is Created Successfully";
@@ -99,7 +100,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Department entity)
+        public async Task <IActionResult> Edit([FromRoute] int id, Department entity)
         {
             if (id != entity.Id)
                 return BadRequest();
@@ -110,7 +111,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
             try
             {
                 _unitOfWork.Repository<Department>().Update(entity);
-                var count = _unitOfWork.Complete();
+                var count =await _unitOfWork.Complete();
 
                 if (count > 0)
                 {
@@ -140,13 +141,13 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete([FromRoute] int? Id, int id)
+        public async Task <IActionResult> Delete([FromRoute] int? Id, int id)
         {
             //_unitOfWork.DepartmentRepository.Delete(department);
             if (id != Id)
                 return BadRequest();
 
-            var department = _unitOfWork.Repository<Department>().GetSpecificEntity(id);
+            var department = await _unitOfWork.Repository<Department>().GetSpecificEntity(id);
 
             if (department is null)
                 return NotFound();//404 Not Found

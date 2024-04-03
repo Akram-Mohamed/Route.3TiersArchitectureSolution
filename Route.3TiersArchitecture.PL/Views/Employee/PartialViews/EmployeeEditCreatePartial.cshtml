@@ -3,7 +3,7 @@
 @* IDepartmentRepository _departmentRepo;
  *@
 @{
-    var Departments = new SelectList(_departmentRepo.Repository<Department>().GetAll(), nameof(Department.Id), nameof(Department.Name));
+    var Departments = new SelectList(await _departmentRepo.Repository<Department>().GetAllAsync(), nameof(Department.Id), nameof(Department.Name));
     string EmpMaleGender = Model?.Gender.ToString();
 
 }

@@ -26,7 +26,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
             _repositoties = new Hashtable();
         }
 
-   
+
 
         public IGenericRepository<T> Repository<T>() /*Repository<Employee>()*/ where T : ModelBase
         {
@@ -50,7 +50,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
                 {
                     if (key == nameof(Employee))
                     {
-                        var repository = new EmployeeRepository(_dbContext); 
+                        var repository = new EmployeeRepository(_dbContext);
                         _repositoties.Add(key, repository);
                     }
                     else
@@ -59,24 +59,25 @@ namespace Route._3TiersArchitecture.BAL.Repositries
                         _repositoties.Add(key, repository);
                     }
 
-                  
+
                 }
             }
-                return _repositoties[key] as IGenericRepository<T>;
+            return _repositoties[key] as IGenericRepository<T>;
 
 
 
         }
-            public int Complete()
-            {
-                return _dbContext.SaveChanges();
-            }
-
-            public void Dispose()
-            {
-                _dbContext.Dispose(); //Close Connection 
-            }
-
-
+        public async Task<int> Complete()
+        {
+            return await _dbContext.SaveChangesAsync();
         }
+
+        public async ValueTask DisposeAsync()
+        {
+            await _dbContext.DisposeAsync(); //Close Connection 
+        }
+
+
+
     }
+}

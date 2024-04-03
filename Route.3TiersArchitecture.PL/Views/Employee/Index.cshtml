@@ -73,11 +73,11 @@
                         @if (File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", "Images", @Employee.ImageName)))
 
                         {
-                          <img  class="ProfileImage rounded-4 " src="~/Files/Images/@Employee.ImageName" alt="Employee @Employee.ImageName Image" />
+                          <img  class="ProfileImage rounded-4 " width="150px" height="100px" src="~/Files/Images/@Employee.ImageName" alt="Employee @Employee.ImageName Image" />
                         }
                         else
                         {
-                            <img class="ProfileImage rounded-4 " src="~/Files/Images/Default Image.jpg" alt="Employee Default Profile Image" />
+                            <img class="ProfileImage rounded-4 " width="150px" height="100px"  src="~/Files/Images/Default Image.jpg" alt="Employee Default Profile Image" />
                         }
 
                     </td>

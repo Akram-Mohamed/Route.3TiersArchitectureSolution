@@ -9,8 +9,8 @@ namespace Route._3TiersArchitecture.BAL.Interface
 {
     public interface IGenericRepository<T> where T : ModelBase
     {
-        IEnumerable<T> GetAll();
-        T GetSpecificEntity(int id);
+        Task< IEnumerable<T> > GetAllAsync();
+        Task  <T> GetSpecificEntity(int id);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
