@@ -10,6 +10,7 @@ using Route._3TiersArchitecture.PL.Models;
 using AutoMapper;
 using System.Collections.Generic;
 using Route._3TiersArchitecture.PL.Helpers;
+using System.Reflection.Metadata;
 
 namespace Route._3TiersArchitecture.PL.Controllers
 {
@@ -75,9 +76,12 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (ModelState.IsValid) // Server Side Validation
             {
-                employeeVM.ImageName = DocumentUploader.UploadFile(employeeVM.Image, "images");
+                //employeeVM.ImageName = DocumentUploader.UploadFile(employeeVM.Image, "images");
 
-
+                if (employeeVM.Image is not null)
+                    employeeVM.ImageName = DocumentUploader.UploadFile(employeeVM.Image, "images");
+                else
+                    employeeVM.ImageName = "No Image her";
                 // Manual Mapping
                 ///var mappedEmp = new Employee()
                 ///{
@@ -151,6 +155,12 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
             try
             {
+                if (entity.Image is not null)
+                    entity.ImageName = DocumentUploader.UploadFile(entity.Image, "images");
+                else
+                    entity.ImageName = "No Image her";
+
+
                 var EmployeeMapped = _Mapper.Map<EmployeeViewModel, Employee>(entity);
                 _unitOfWork.Repository<Employee>().Update(EmployeeMapped);
                 var count = _unitOfWork.Complete();
@@ -194,9 +204,15 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
                 _unitOfWork.Repository<Employee>().Delete(Employee);
                 var count = _unitOfWork.Complete();
+                //var EmployeeMapped = _Mapper.Map<Employee, EmployeeResponseViewModel>(Employee);
+              
+                if (count > 0)
+                {
+                    DocumentUploader.DeleteFile(Employee.ImageName, "Images");
 
-                return RedirectToAction(nameof(Index));
-
+                  return RedirectToAction(nameof(Index));
+                }
+                return View(Employee);
             }
 
             catch (Exception ex)

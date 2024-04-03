@@ -37,7 +37,7 @@ namespace Route._3TiersArchitecture.PL.Helpers
 
         public static void DeleteFile(string fileName, string FolderName)
         {
-            string filePath=Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", FolderName);
+            string filePath=Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", FolderName, fileName);
             if (File.Exists(filePath)) 
                 File.Delete(filePath);
           

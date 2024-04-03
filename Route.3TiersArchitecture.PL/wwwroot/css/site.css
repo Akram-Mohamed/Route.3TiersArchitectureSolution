@@ -78,3 +78,10 @@ body {
 .readonlystyle {
     user-select: none !important;
 }
+
+
+.ProfileImage {
+
+    width: 200px;
+    height: 100px;
+}

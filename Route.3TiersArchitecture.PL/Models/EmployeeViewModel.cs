@@ -8,18 +8,7 @@ using Microsoft.AspNetCore.Http;
 namespace Route._3TiersArchitecture.PL.Models
 {
 
-    public enum Gender
-    {
-        [EnumMember(Value = "Male")]
-        Male = 1,
-        [EnumMember(Value = "Female")]
-        Female = 2
-    }
-    public enum EmpType
-    {
-        FullTime = 1,
-        PartTime = 2,
-    }
+   
     public class EmployeeViewModel
     {
         public int Id { get; set; }

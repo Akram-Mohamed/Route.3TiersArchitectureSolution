@@ -1,8 +1,11 @@
 ﻿using Route._3TiersArchitecture.DAL.Models_Services_;
 using System;
+using System.Runtime.Serialization;
 
 namespace Route._3TiersArchitecture.PL.Models
 {
+
+
     public class EmployeeResponseViewModel
     {
         public int Id { get; set; }
