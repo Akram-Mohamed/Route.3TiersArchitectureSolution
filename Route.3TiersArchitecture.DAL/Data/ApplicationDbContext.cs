@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.DAL.Data
 {
-   public class ApplicationDbContext : IdentityDbContext
+   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
 
