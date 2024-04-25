@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Route._3TiersArchitecture.PL.Models.User
+namespace Route._3TiersArchitecture.PL.Models.Account
 {
 	public class SignUpViewModel
 	{

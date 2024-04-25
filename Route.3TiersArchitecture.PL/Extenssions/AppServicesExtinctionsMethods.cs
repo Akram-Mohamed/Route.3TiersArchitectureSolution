@@ -1,12 +1,18 @@
 ﻿
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Route._3TiersArchitecture.BAL.Interface;
 using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Data;
+using Route._3TiersArchitecture.DAL.Models_Services_;
 using Route._3TiersArchitecture.PL.Helpers;
+using Route._3TiersArchitecture.PL.Services;
+using System;
+using System.Data.Common;
 
 
 
@@ -19,7 +25,7 @@ namespace Route._3TiersArchitecture.PL.Extenssions
         {
 
 
-            services.AddControllersWithViews();  
+            services.AddControllersWithViews();
             // Register Built-In Services Required by MVC
             //services.AddScoped<ApplicationDbContext>();
             //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
@@ -27,19 +33,44 @@ namespace Route._3TiersArchitecture.PL.Extenssions
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                 {
+
                     //options.UseSqlServer(Configuration.GetSection("ConnectionString")["DefaultConnection"]);
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Scoped
                 );
-
             services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
-            
-            //services.AddScoped<IUnitOfWork, IUnitOfWork>();
-           // services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-           // services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => { })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LogoutPath = "/Account/SignIn";
+                options.ExpireTimeSpan = TimeSpan.FromDays(5);
+                options.AccessDeniedPath = "/Home/Error";
+
+            });
+
+            services.AddAuthentication("Akram");
+            services.AddAuthentication(options =>
+            {
+                //options.DefaultAuthenticateScheme = "Akram";
+                //options.DefaultAuthenticateScheme = "Identity.Application";
+            })
+
+             .AddCookie("Hamda", options =>
+             {
+                 options.LoginPath = "/Account/SignIn";
+                 options.ExpireTimeSpan = TimeSpan.FromDays(9);
+                 options.AccessDeniedPath = "/Home/Error";
+             });
+
+            //services.AddScoped<IUnitOfWork, IUnitOfWork>();
+            // services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            // services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
     }
