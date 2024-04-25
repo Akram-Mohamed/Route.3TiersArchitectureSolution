@@ -10,6 +10,7 @@ using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Data;
 using Route._3TiersArchitecture.DAL.Models_Services_;
 using Route._3TiersArchitecture.PL.Helpers;
+using Route._3TiersArchitecture.PL.Services;
 using System;
 using System.Data.Common;
 
@@ -69,6 +70,7 @@ namespace Route._3TiersArchitecture.PL.Extenssions
             // services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             // services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
     }
