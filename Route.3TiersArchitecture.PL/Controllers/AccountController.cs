@@ -111,5 +111,32 @@ namespace Route._3TiersArchitecture.PL.Controllers
         }
         #endregion
 
+
+
+
+
+
+
+
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendResetPasswordEmail(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                
+            }
+            return View(model);
+        }
+
+
+
+
+
     }
 }
