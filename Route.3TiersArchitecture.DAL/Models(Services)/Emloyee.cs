@@ -44,6 +44,7 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
 
         public bool IsDeletable { get; set; } = false;
 
+        public string ImageName { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 

@@ -20,22 +20,28 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         }
 
 
-        public IQueryable<Employee> GetEmployeesByAddress(string address)
+        public  IQueryable<Employee>  GetEmployeesByAddress(string address)
         {
-            return _dbContext.Employees.Where(E => string.Equals(E.Address, address, StringComparison.OrdinalIgnoreCase));
+            return  _dbContext.Employees.Where(E => string.Equals(E.Address, address, StringComparison.OrdinalIgnoreCase));
         }
-        public IEnumerable<Employee> SearchByName(string Name)
+        public IQueryable<Employee> SearchByName(string Name)
         {
-
-
             return _dbContext.Employees.Where(E => E.Name.ToLower().Contains(Name.ToLower()));
 
-            //=> _dbContext.Employees
-            //    .Where(
-            //           E => string.Equals(E.Name, Name, StringComparison.OrdinalIgnoreCase)
-            //          );
+            ///=> _dbContext.Employees
+            ///    .Where(
+            ///           E => string.Equals(E.Name, Name, StringComparison.OrdinalIgnoreCase)
+            ///          );
 
         }
+
+
+
+       // public override IEnumerable<Employee> GetAllAsync()
+       // => _dbContext.Set<Employee>().Include(E => E.Department).AsNoTracking().ToList();
+
+        public override async Task<IEnumerable<Employee> > GetAllAsync()
+          => await _dbContext.Set<Employee>().Include(E => E.Department).AsNoTracking().ToListAsync();
 
 
         #region OLD Implement

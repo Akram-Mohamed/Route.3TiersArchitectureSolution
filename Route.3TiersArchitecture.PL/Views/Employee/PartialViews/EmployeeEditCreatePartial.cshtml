@@ -3,7 +3,7 @@
 @* IDepartmentRepository _departmentRepo;
  *@
 @{
-    var Departments = new SelectList(_departmentRepo.DepartmentRepository.GetAll(), nameof(Department.Id), nameof(Department.Name));
+    var Departments = new SelectList(await _departmentRepo.Repository<Department>().GetAllAsync(), nameof(Department.Id), nameof(Department.Name));
     string EmpMaleGender = Model?.Gender.ToString();
 
 }
@@ -95,13 +95,10 @@
     </div>
 
 
-
-
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" asp-for="@Model.ISActive" id="flexSwitchCheckChecked">
         <label class="form-check-label" asp-for="@Model.ISActive"></label>
     </div>
-
 
 
     <div class="form-group">
@@ -113,6 +110,10 @@
 
     </div>
 
+    <div>
+        <label class="col-form-label text-primary fs-4 fw-medium" @* asp-for="Image" *@> Profile Picture: </label>
+        <input type="File" asp-for="Image" class="form-control-file" />
+    </div>
 
 
 </div>

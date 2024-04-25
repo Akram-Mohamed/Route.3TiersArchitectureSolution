@@ -19,7 +19,7 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         }
 
 
-        public void Add(T entity)
+        public  void Add(T entity)
            => _dbContext.Set<T>().Add(entity);
             // _dbContext.Update(entity); // EF Core 3.1 NEW Feature
             //return _dbContext.SaveChanges();
@@ -45,18 +45,19 @@ namespace Route._3TiersArchitecture.BAL.Repositries
 
 
 
-        public IEnumerable<T> GetAll()
+        public virtual async Task< IEnumerable<T> > GetAllAsync()
         {
             if (typeof(T) == typeof(Employee) )
-                return (IEnumerable<T>)_dbContext.Employees.Include(E => E.Department).AsNoTracking().ToList();
-            else
-                return _dbContext.Set<T>().AsNoTracking().ToList();
+                return (IEnumerable<T>) await _dbContext.Set<Employee>().Include(E => E.Department).AsNoTracking().ToListAsync();
+          
+
+          return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public T GetSpecificEntity(int id)
+        public async Task <T> GetSpecificEntity(int id)
         {
-            var Entity = _dbContext.Set<T>().Find(id);
-            return Entity;
+            return await _dbContext.Set<T>().FindAsync(id);
+             
         }
     }
 }

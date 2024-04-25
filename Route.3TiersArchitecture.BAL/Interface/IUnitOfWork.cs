@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.BAL.Interface
 {
-    public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IAsyncDisposable
     {
 
         IGenericRepository<T> Repository<T> () where T : ModelBase;
 
         //public IEmployeeRepository EmployeeRepository { get; set; }
         //public IDepartmentRepository DepartmentRepository { get; set; }
-
         //public IGenericRepository<Department> DepartmentRepository { get; set; }
-        int Complete();
+
+        Task<int> Complete();
     }
 }

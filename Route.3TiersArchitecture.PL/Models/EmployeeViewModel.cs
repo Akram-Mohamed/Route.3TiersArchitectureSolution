@@ -3,22 +3,12 @@ using Route._3TiersArchitecture.DAL.Models_Services_;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Http;
 
 namespace Route._3TiersArchitecture.PL.Models
 {
 
-    public enum Gender
-    {
-        [EnumMember(Value = "Male")]
-        Male = 1,
-        [EnumMember(Value = "Female")]
-        Female = 2
-    }
-    public enum EmpType
-    {
-        FullTime = 1,
-        PartTime = 2,
-    }
+   
     public class EmployeeViewModel
     {
         public int Id { get; set; }
@@ -53,7 +43,9 @@ namespace Route._3TiersArchitecture.PL.Models
         [Display(Name = "Hiring Date")]
         public DateTime HiringDate { get; set; }
 
+        public IFormFile Image { get; set; }
 
+        public string ImageName { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
     }

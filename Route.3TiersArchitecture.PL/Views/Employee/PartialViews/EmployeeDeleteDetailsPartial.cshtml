@@ -1,52 +1,73 @@
 ﻿@model EmployeeViewModel
 
+@inject IMapper Mapper
+@{
+   
+    var EmployeeMapped = Mapper.Map<EmployeeViewModel, EmployeeResponseViewModel>(@Model);
+}
 
-<div class="">
+<div >
+    <div>
+        
+        <label class="col-form-label" >Profile Picture</label> 
+        @if (!@EmployeeMapped.ImageName.Equals("No Image her"))
+        {
+            <img class=" rounded-4 " width="150px" height="100px" src="~/Files/Images/@EmployeeMapped.ImageName" alt="Employee Profile Image" />
+        }
+        else
+        {
+            <img class=" rounded-4 " width="150px" height="100px"  src="~/Files/Images/Default Image.jpg" alt="Employee Default Profile Image" />
 
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.Name"></label>
-        <input asp-for="@Model.Name" class="form-control " readonly />
-
-    </div>
-
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.Age"></label>
-        <input asp-for="@Model.Age" class="form-control" readonly />
-    </div>
-
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.Email"></label>
-        <input asp-for="@Model.Email" class="form-control" readonly />
-
-    </div>
-
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.Address"></label>
-        <input asp-for="@Model.Address" class="form-control" readonly />
-    </div>
-
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.Salary"></label>
-        <input asp-for="@Model.Salary" class="form-control" readonly />
-    </div>
-
-    <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.PhoneNumber"></label>
-        <input asp-for="@Model.PhoneNumber" class="form-control" readonly />
+        }
 
     </div>
 
     <div class="form-group">
-        <label class="col-form-label" asp-for="@Model.HiringDate"></label>
-        <input asp-for="@Model.HiringDate" class="form-control" readonly />
+        <label class="col-form-label" asp-for="@EmployeeMapped.Name"></label>
+        <input asp-for="@EmployeeMapped.Name" class="form-control " readonly />
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.Age"></label>
+        <input asp-for="@EmployeeMapped.Age" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.Email"></label>
+        <input asp-for="@EmployeeMapped.Email" class="form-control" readonly />
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.Address"></label>
+        <input asp-for="@EmployeeMapped.Address" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.Salary"></label>
+        <input asp-for="@EmployeeMapped.Salary" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.PhoneNumber"></label>
+        <input asp-for="@EmployeeMapped.PhoneNumber" class="form-control" readonly />
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" asp-for="@EmployeeMapped.HiringDate"></label>
+        <input asp-for="@EmployeeMapped.HiringDate" class="form-control" readonly />
     </div>
 
 
     <div>
-        @if (@Model.Gender.Equals(Route._3TiersArchitecture.DAL.Models_Services_.Gender.Male))
+        @EmployeeMapped.Gender
+
+        @if (@EmployeeMapped.Gender.Equals(Route._3TiersArchitecture.DAL.Models_Services_.Gender.Male))
         {
             <div class="border rounded-2  bg-success-subtle py-2">
-
+              
                 <div class="form-check-inline form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked disabled>
                     <label class="form-check-label" for="flexSwitchCheckChecked">Male</label>
@@ -57,7 +78,7 @@
                 </div>
             </div>
         }
-        else
+        else if (@EmployeeMapped.Gender.Equals(Route._3TiersArchitecture.DAL.Models_Services_.Gender.Female))
         {
             <div class="form-check-inline form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" disabled>
@@ -74,18 +95,18 @@
 
    
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" asp-for="@Model.ISActive" id="flexSwitchCheckCheckedDisabled" disabled>
-        <label class="form-check-label" asp-for="@Model.ISActive"></label>
+        <input class="form-check-input" type="checkbox" role="switch" asp-for="@EmployeeMapped.ISActive" id="flexSwitchCheckCheckedDisabled" disabled>
+        <label class="form-check-label" asp-for="@EmployeeMapped.ISActive"></label>
     </div>
 </div>
 
 
 
 @* <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" asp-for="@Model.Gender" id="inlineRadio1" value="0">
-    <label class="form-check-label" asp-for="@Model.Gender"></label>
+    <input class="form-check-input" type="radio" asp-for="@EmployeeMapped.Gender" id="inlineRadio1" value="0">
+    <label class="form-check-label" asp-for="@EmployeeMapped.Gender"></label>
   </div>
 <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" asp-for="@Model.Gender" id="inlineRadio2" value="1">
-    <label class="form-check-label" asp-for="@Model.Gender"></label>
+    <input class="form-check-input" type="radio" asp-for="@EmployeeMapped.Gender" id="inlineRadio2" value="1">
+    <label class="form-check-label" asp-for="@EmployeeMapped.Gender"></label>
 </div> *@

@@ -8,7 +8,7 @@
 
 
 
-<form asp-action="Edit" class="border border-2 border-primary-subtle border-4 rounded-4 bg-primary-subtle p-3">
+<form asp-action="Edit" enctype="multipart/form-data"  class="border border-2 border-primary-subtle border-4 rounded-4 bg-primary-subtle p-3">
 
     <div>
         @await Html.PartialAsync("PartialViews/EmployeeEditCreatePartial", @Model)

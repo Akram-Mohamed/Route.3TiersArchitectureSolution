@@ -13,6 +13,8 @@ namespace Route._3TiersArchitecture.PL.Helpers
             //.ForMember(d => d.Name, o => o.MapFrom(s => s.EmpName));
 
             CreateMap<EmployeeViewModel, Employee>().ReverseMap();
+            CreateMap<EmployeeResponseViewModel, Employee>().ReverseMap();
+            CreateMap<EmployeeResponseViewModel, EmployeeViewModel>().ReverseMap();
             CreateMap<DepartmentViewModel, Department>().ReverseMap();
 
         }
