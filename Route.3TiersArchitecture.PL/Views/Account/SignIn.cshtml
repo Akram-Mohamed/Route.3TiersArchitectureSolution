@@ -1,0 +1,45 @@
+﻿@model SignInViewModel
+
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Authlayout.cshtml";
+}
+
+
+
+<div class="container" id="container">
+    <div class="form-container sign-in-container">
+        <form asp-action="SignIn">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input asp-for="Email" placeholder="Email" />
+            <input asp-for="Password" placeholder="Password" />
+            <input asp-for="RememberMe" type="checkbox" placeholder="Password" />
+            <span>Remember me</span>
+
+            <a asp-action="forgetPassword">Forgot your password?</a>
+            <button class="button">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <a asp-action="signup" class="button ghost" id="signUp">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptValidationSection {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

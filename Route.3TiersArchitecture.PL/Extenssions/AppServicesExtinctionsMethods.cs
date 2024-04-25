@@ -1,12 +1,15 @@
 ﻿
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Route._3TiersArchitecture.BAL.Interface;
 using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Data;
+using Route._3TiersArchitecture.DAL.Models_Services_;
 using Route._3TiersArchitecture.PL.Helpers;
+using System.Data.Common;
 
 
 
@@ -27,15 +30,18 @@ namespace Route._3TiersArchitecture.PL.Extenssions
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                 {
+
                     //options.UseSqlServer(Configuration.GetSection("ConnectionString")["DefaultConnection"]);
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Scoped
                 );
-
             services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
-            
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => { })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication();
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
            // services.AddScoped<IDepartmentRepository, DepartmentRepository>();
            // services.AddScoped<IEmployeeRepository, EmployeeRepository>();
