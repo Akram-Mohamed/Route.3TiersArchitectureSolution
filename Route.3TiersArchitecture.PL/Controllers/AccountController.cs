@@ -100,6 +100,9 @@ namespace Route._3TiersArchitecture.PL.Controllers
             }
             return View(model);
         }
+        #endregion
+
+        #region Sign Out
 
         public async new Task<IActionResult> SignOut()
         {
@@ -107,8 +110,6 @@ namespace Route._3TiersArchitecture.PL.Controllers
             return RedirectToAction(nameof(SignIn));
         }
         #endregion
-
-
 
     }
 }
