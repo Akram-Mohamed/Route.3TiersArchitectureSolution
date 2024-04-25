@@ -129,7 +129,14 @@ namespace Route._3TiersArchitecture.PL.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                
+                if (user is not null)
+                {
+                    var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var resetPasswordUrl = Url.Action("ResetPassword", "Account", new { email = user.Email, token = resetPasswordToken }, "https", "localhost:44309");
+                    await _userManager.send(_configs["EmailSettings:SenderEmail"], model.Email, "Reset Password", resetPasswordUrl);
+                }
+                ModelState.AddModelError(string.Empty, "There is no account with this email");
+                return RedirectToAction(nameof(CheckYourInbox));
             }
             return View(model);
         }
