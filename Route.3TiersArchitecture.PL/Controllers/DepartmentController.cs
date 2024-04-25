@@ -13,12 +13,16 @@ namespace Route._3TiersArchitecture.PL.Controllers
     // Association : DepartmentController has a DepartmentRepositorys
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepository _departmentsRepo;
+        //private readonly IDepartmentRepository _unitOfWork.DepartmentRepository;
         private readonly IWebHostEnvironment _env;
-
-        public DepartmentController(IDepartmentRepository departmentsRepo, IWebHostEnvironment env)// Ask CLR for Creating an Object from Class Implmenting IDepartmentReposi
+        private readonly IUnitOfWork _unitOfWork;
+        public DepartmentController(IUnitOfWork unitOfWork,
+            //IDepartmentRepository departmentsRepo,
+            IWebHostEnvironment env)
+            // Ask CLR for Creating an Object from Class Implmenting IDepartmentReposi
         {
-            _departmentsRepo = departmentsRepo;
+            _unitOfWork = unitOfWork;
+            //_unitOfWork.DepartmentRepository = departmentsRepo;
             _env = env;
 
             /*new DepartmentRepository();*/
@@ -26,7 +30,15 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
         public IActionResult Index()
         {
-            var deparments = _departmentsRepo.GetAll();
+
+
+            // Binding Through View's Dictionary: Transfer Data from Action to View [One Way]
+            // 1. ViewData
+            ViewData["Message"] = "Hello ViewData";
+            // 2. ViewBag
+            ViewBag.Message = "Hello ViewData";
+
+            var deparments = _unitOfWork.Repository<Department>().GetAll();
             return View(deparments);
         }
 
@@ -42,7 +54,15 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (ModelState.IsValid) // Server Side Validation
             {
-                var count = _departmentsRepo.Add(department);
+                 _unitOfWork.Repository<Department>().Add(department);
+                var count = _unitOfWork.Complete();
+                // 3. TempData
+                if (count > 0)
+                    TempData["Message"] = "Department is Created Successfully";
+                else
+                    TempData["Message"] = "An Error Has Occured, Department Not Created :(";
+
+
                 if (count > 0)
                     return RedirectToAction(nameof(Index));
             }
@@ -54,7 +74,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             if (!id.HasValue /*id is null*/)
                 return BadRequest();//400 Bad request
-            var department = _departmentsRepo.GetSpecificEntity(id.Value);
+            var department = _unitOfWork.Repository<Department>().GetSpecificEntity(id.Value);
 
             if (department is null)
                 return NotFound();//404 Not Found
@@ -67,7 +87,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
         {
             ///if (!id.HasValue /*id is null*/)
             ///    return BadRequest();//400 Bad request
-            ///var department = _departmentsRepo.GetSpecificDepartment(id.Value);
+            ///var department = _unitOfWork.DepartmentRepository.GetSpecificDepartment(id.Value);
             ///
             ///if (department is null)
             ///    return NotFound();//404 Not Found
@@ -89,7 +109,9 @@ namespace Route._3TiersArchitecture.PL.Controllers
 
             try
             {
-                var count = _departmentsRepo.Update(entity);
+                _unitOfWork.Repository<Department>().Update(entity);
+                var count = _unitOfWork.Complete();
+
                 if (count > 0)
                 {
 
@@ -120,16 +142,16 @@ namespace Route._3TiersArchitecture.PL.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete([FromRoute] int? Id, int id)
         {
-            //_departmentsRepo.Delete(department);
+            //_unitOfWork.DepartmentRepository.Delete(department);
             if (id != Id)
                 return BadRequest();
 
-            var department = _departmentsRepo.GetSpecificEntity(id);
+            var department = _unitOfWork.Repository<Department>().GetSpecificEntity(id);
 
             if (department is null)
                 return NotFound();//404 Not Found
 
-            _departmentsRepo.Delete(department);
+            _unitOfWork.Repository<Department>().Delete(department);
 
             return RedirectToAction(nameof(Index));
         }

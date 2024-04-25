@@ -19,37 +19,44 @@ namespace Route._3TiersArchitecture.BAL.Repositries
         }
 
 
-        public int Add(T entity)
-        {
-            _dbContext.Set<T>().Add(entity);
+        public void Add(T entity)
+           => _dbContext.Set<T>().Add(entity);
             // _dbContext.Update(entity); // EF Core 3.1 NEW Feature
-            return _dbContext.SaveChanges();
-        }
+            //return _dbContext.SaveChanges();
+   
 
-        public int Update(T entity)
-        {
-            _dbContext.Set<T>().Update(entity);
+        public void Update(T entity)
+          => _dbContext.Set<T>().Update(entity);
             // _dbContext.Update(entity); // EF Core 3.1 NEW Feature
-            return _dbContext.SaveChanges();
-        }
+            //return _dbContext.SaveChanges();
 
 
 
-        public int Delete(T entity)
-        {
+        public void Delete(T entity)
+            =>_dbContext.Remove(entity);
             //_dbContext.Set<T>().Remove(entity);
-            _dbContext.Remove(entity);
-            return _dbContext.SaveChanges();
-        }
+           // return _dbContext.SaveChanges();
+        
+
+        ///public IEnumerable<T> GetAll()
+        ///{
+        ///    return _dbContext.Set<T>().AsNoTracking().ToList();
+        ///}
+
+
 
         public IEnumerable<T> GetAll()
-          => _dbContext.Set<T>().AsNoTracking().ToList();
+        {
+            if (typeof(T) == typeof(Employee) )
+                return (IEnumerable<T>)_dbContext.Employees.Include(E => E.Department).AsNoTracking().ToList();
+            else
+                return _dbContext.Set<T>().AsNoTracking().ToList();
+        }
 
         public T GetSpecificEntity(int id)
-          => _dbContext.Find<T>(id);
-
-
-
-
+        {
+            var Entity = _dbContext.Set<T>().Find(id);
+            return Entity;
+        }
     }
 }

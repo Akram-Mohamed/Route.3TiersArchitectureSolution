@@ -11,16 +11,15 @@ namespace Route._3TiersArchitecture.DAL.Models_Services_
     public class Department : ModelBase
     {
        
-        [Required(ErrorMessage = "Code is Required Ya3m Enta :(--:(--")]//Not Accecpt Null
-        public string Code { get; set; }//Department Number Shown To the user
-
-        [Required(ErrorMessage = "Name is Required Ya3m Enta Tany :(--:(--")]//Not Accecpt Null
+     
+        public string Code { get; set; }
         public string Name { get; set; }
-
-        [Display (Name="Date Of Creation ")]
         public DateTime DateOfCreation { get; set; }
 
 
+
+        //navigation property many
+        public ICollection<Employee> Employees { get; set; }=new HashSet<Employee>();
     }
 
 

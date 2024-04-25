@@ -1,0 +1,25 @@
+﻿@model EmployeeViewModel
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+
+<h1 class="mb-3">Employee Details</h1>
+
+<div class="border border-2 border-primary-subtle border-4 rounded-4 bg-primary-subtle p-3">
+    <div>
+        @* <partial name="PartialViews/EmployeeEditCreatePartial" model="@Model"></partial> *@
+        @await Html.PartialAsync("PartialViews/EmployeeDeleteDetailsPartial", @Model) 
+    </div>
+
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-dark px-5">Back To List</a>
+
+    </div>
+
+
+</div>
+
+

@@ -15,13 +15,15 @@ using Microsoft.EntityFrameworkCore;
 using Route._3TiersArchitecture.BAL.Repositries;
 using Route._3TiersArchitecture.DAL.Models_Services_;
 using Route._3TiersArchitecture.BAL.Interface;
+using Route._3TiersArchitecture.PL.Extenssions;
+using AutoMapper;
+using Route._3TiersArchitecture.PL.Helpers;
 
 namespace Route._3TiersArchitecture.PL
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
+       
         //public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
@@ -29,25 +31,14 @@ namespace Route._3TiersArchitecture.PL
             //Configuration = configuration;
         }
 
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();  // Register Built-In Services Required by MVC
-            //services.AddScoped<ApplicationDbContext>();
-            //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
-            services.AddDbContext<ApplicationDbContext>(
-                options =>
-                   {
-                       //options.UseSqlServer(Configuration.GetSection("ConnectionString")["DefaultConnection"]);
-                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                   },
-                contextLifetime: ServiceLifetime.Scoped,
-            optionsLifetime: ServiceLifetime.Scoped
-                );
-
-
-            services.AddScoped<IDepartmentRepository , DepartmentRepository > ();
+          
+            services.AddApplicationServices(Configuration);
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
