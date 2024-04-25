@@ -11,7 +11,7 @@ namespace Route._3TiersArchitecture.DAL.Data.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Dept_Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "10, 10"),
                     Code = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
                     Name = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
@@ -19,7 +19,7 @@ namespace Route._3TiersArchitecture.DAL.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.Dept_Id);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                 });
         }
 

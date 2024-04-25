@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Route._3TiersArchitecture.BAL.Interface
 {
-
-    public interface IDepartmentRepository:IGenericRepository<Department>
+    public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-     
+
+        IQueryable<Employee> GetEmployeesByAddress(string address);
+
     }
 }
