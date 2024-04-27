@@ -38,26 +38,13 @@ namespace Route._3TiersArchitecture.PL
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			
 
 			///services.AddScoped<UserManager<ApplicationUser>>();
 			///services.AddScoped<SignInManager<ApplicationUser>>();
 			///services.AddScoped<RoleManager<IdentityRole>>();
 
-			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-			{
-				options.Password.RequiredUniqueChars = 2;
-				options.Password.RequireDigit = true;
-				options.Password.RequireNonAlphanumeric = true; // @$%
-				options.Password.RequireUppercase = true;
-				options.Password.RequireLowercase = true;
-				options.Password.RequiredLength = 5;
-
-				options.Lockout.AllowedForNewUsers = true;
-				options.Lockout.MaxFailedAccessAttempts = 5;
-				options.Lockout.DefaultLockoutTimeSpan= TimeSpan.FromHours(5);
-				options.User.RequireUniqueEmail = true;
-			}).AddEntityFrameworkStores<ApplicationDbContext>();
+			
 			//services.AddAuthentication();
 			
 

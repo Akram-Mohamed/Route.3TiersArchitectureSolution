@@ -5,8 +5,8 @@ namespace Route._3TiersArchitecture.PL.Models.Account
 	public class SignUpViewModel
 	{
 		[Required(ErrorMessage = "User Name is required")]
-		[EmailAddress(ErrorMessage = "Invalid User Name")]
-		public string UserName { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
 
 		[Required(ErrorMessage = "Email is required")]

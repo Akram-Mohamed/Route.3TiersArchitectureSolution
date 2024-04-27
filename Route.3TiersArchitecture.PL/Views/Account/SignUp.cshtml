@@ -12,22 +12,22 @@
         <div asp-validation-summary="ModelOnly"></div>
 
         <form asp-action="SignUp">
-            <input class="text SignUpText" type="text" asp-for="UserName" placeholder="UserName Name" required="">
-            <input class="text SignUpText" type="text" asp-for="FirstName" placeholder="First Name" required="">
-            <input class="text SignUpText" type="text" asp-for="LastName" placeholder="Last Name" required="">
-            <input class="text email" type="email" asp-for="Email" placeholder="Email" required="">
-            <input class="text" type="password" asp-for="Password" placeholder="Password" required="">
-            <input class="text w3lpass" type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required="">
+            <input class="text SignUpText" asp-for="UserName" placeholder="UserName" required="" />
+            <input class="text SignUpText" asp-for="FirstName" placeholder="First Name" required="" />
+            <input class="text SignUpText" asp-for="LastName" placeholder="Last Name" required="" />
+            <input class="text email" type="email" asp-for="Email" placeholder="Email" required="" />
+            <input class="text" type="password" asp-for="Password" placeholder="Password" required="" />
+            <input class="text w3lpass" type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required="" />
             <div class="wthree-text">
                 <label class="anim">
-                    <input type="checkbox" asp-for="IsAgree" class="checkbox" required="">
+                    <input type="checkbox" asp-for="IsAgree" class="checkbox" required="" />
                     <span>I Agree To The Terms & Conditions</span>
                 </label>
                 <div class="clear"> </div>
             </div>
-            <input type="submit" value="SIGNUP">
+            <input type="submit" value="SignUp">
         </form>
-        <p>Don You  have an Account? <a asp-action="LogIn"> Login Now!</a></p>
+        <p>Don You  have an Account? <a asp-action="Login"> Login Now!</a></p>
     </div>
 </div>
 

@@ -55,7 +55,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
                     };
                     var Result = await _userManager.CreateAsync(user, model.Password);
                     if (Result.Succeeded)
-                        return RedirectToAction(nameof(SignIn));
+                        return RedirectToAction(nameof(Login));
 
                     foreach (var error in Result.Errors)
                         ModelState.AddModelError(string.Empty, error.Description);
@@ -74,13 +74,13 @@ namespace Route._3TiersArchitecture.PL.Controllers
         #endregion
 
         #region Sign In
-        public IActionResult SignIn()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInViewModel model)
+        public async Task<IActionResult> Login(SignInViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,8 @@ namespace Route._3TiersArchitecture.PL.Controllers
                     {
                         var ressult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                         if (ressult.Succeeded)
-                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                            return RedirectToAction(nameof(HomeController.Index), "/Home");
+                          
 
                         if (ressult.IsLockedOut)
                             ModelState.AddModelError(string.Empty, "Your account is locked!");
@@ -113,13 +114,9 @@ namespace Route._3TiersArchitecture.PL.Controllers
         public async new Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(SignIn));
+            return RedirectToAction(nameof(Login));
         }
         #endregion
-
-
-
-
 
 
 
@@ -179,7 +176,7 @@ namespace Route._3TiersArchitecture.PL.Controllers
                 {
 
                     await _userManager.ResetPasswordAsync(user, token, model.Password);
-                    return RedirectToAction(nameof(SignIn));
+                    return RedirectToAction(nameof(Login));
                 }
                 ModelState.AddModelError(string.Empty, "Url is not valid");
             }
